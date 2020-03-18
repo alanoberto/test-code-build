@@ -1,0 +1,27 @@
+cat > alb-ingress-controller.yaml <<-EOF
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: alb-ingress-controller
+  name: alb-ingress-controller
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: alb-ingress-controller
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: alb-ingress-controller
+    spec:
+      containers:
+      - name: alb-ingress-controller
+        args:
+        - --ingress-class=alb
+        - --cluster-name=$CLUSTER_NAME
+        - --aws-vpc-id=$VPC_ID
+        - --aws-region=$AWS_REGION
+        image: docker.io/amazon/aws-alb-ingress-controller:v1.1.4
+      serviceAccountName: alb-ingress-controller
+EOF
