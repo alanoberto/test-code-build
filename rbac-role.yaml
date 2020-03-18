@@ -1,4 +1,3 @@
-cat > rbac-role.yaml <<-EOF
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -52,4 +51,3 @@ subjects:
   - kind: ServiceAccount
     name: alb-ingress-controller
     namespace: kube-system
-EOF
